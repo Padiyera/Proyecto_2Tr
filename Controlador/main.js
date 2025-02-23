@@ -1,5 +1,58 @@
 var url = "../Modelo/crud.php"; // URL del archivo PHP que maneja las operaciones CRUD
 
+// URL del archivo PHP que maneja las operaciones de logs
+var urlLogs = "../Modelo/logs.php";
+
+// Función para registrar acciones de los usuarios
+function logAction(currentUser, action) {
+  if (!currentUser) {
+    console.error('Error: No hay usuario actual');
+    return;
+  }
+
+  axios.post(urlLogs, {
+    opcion: 3, // Opción para insertar un nuevo log
+    username: currentUser,
+    action: action
+  }).then(response => {
+    console.log('Respuesta completa del servidor:', response);
+    if (response.data && response.data.status === 'success') {
+      console.log('Log de acción guardado correctamente:', response.data.message);
+    } else {
+      console.error('Error al guardar el log de acción:', response.data ? response.data.message : 'Respuesta inesperada del servidor');
+    }
+  }).catch(error => {
+    console.error('Error al guardar el log de acción:', error);
+    if (error.response) {
+      // El servidor respondió con un código de estado fuera del rango 2xx
+      console.error('Respuesta del servidor:', error.response.data);
+      console.error('Estado HTTP:', error.response.status);
+      console.error('Cabeceras:', error.response.headers);
+    } else if (error.request) {
+      // No se recibió respuesta del servidor
+      console.error('No se recibió respuesta del servidor:', error.request);
+    } else {
+      // Error al configurar la solicitud
+      console.error('Error al configurar la solicitud:', error.message);
+    }
+    console.error('Configuración de la solicitud:', error.config);
+  });
+}
+
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for (let i = 0; i < cookieArr.length; i++) {
+    let cookiePair = cookieArr[i].split("=");
+    if (name == cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+}
+
+var currentUser = getCookie('currentUser');
+console.log('Usuario actual:', currentUser);
+
 var appVehiculos = new Vue({
   el: "#appVehiculos", // Elemento HTML donde se monta la instancia de Vue
   data: {
@@ -74,6 +127,7 @@ var appVehiculos = new Vue({
       }
       else {
         this.altaVehiculo();
+        logAction(currentUser, 'Ingresar vehículo'); // Registrar la acción
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -144,6 +198,7 @@ var appVehiculos = new Vue({
           const estado = document.getElementById('estado').value;
 
           this.editarVehiculo(id, fechaentrada, fechasalida, lugar, direccion, agente, matricula, marca, modelo, color, motivo, tipovehiculo, grua, estado);
+          logAction(currentUser, 'Editar vehículo'); // Registrar la acción
           Swal.fire({
             icon: 'success',
             title: '¡Actualizado!',
@@ -165,6 +220,7 @@ var appVehiculos = new Vue({
       }).then((result) => {
         if (result.value) {
           this.borrarVehiculo(id);
+          logAction(currentUser, 'Eliminar vehículo');
           //y mostramos un msj sobre la eliminacion  
           Swal.fire(
             '¡Eliminado!',
@@ -214,6 +270,7 @@ var appVehiculos = new Vue({
         // confirmButtonColor: '#1cc88a'
         showConfirmButton: false
       });
+      logAction(currentUser, 'Ver vehículo');
     },
     // Procedimientos para el CRUD     
     listarVehiculos: function () {
@@ -314,46 +371,6 @@ var appVehiculos = new Vue({
       });
     }
   },
-  /*
-    logUserLogin(usuario) {
-      // Crear un objeto con los datos del usuario
-      const data = {
-        usuario: usuario
-      };
-  
-      // Enviar los datos al servidor usando fetch
-      fetch('Modelo/log_login.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => {
-          // Verificar si la respuesta es OK (código 200)
-          if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-          }
-          return response.text(); // Leer la respuesta como texto primero
-        })
-        .then(text => {
-          console.log('Respuesta del servidor:', text); // Mostrar la respuesta en la consola
-          try {
-            const result = JSON.parse(text); // Intentar analizar la respuesta como JSON
-            if (result.status === 'success') {
-              console.log('Log de inicio de sesión guardado correctamente');
-            } else {
-              console.error('Error al guardar el log de inicio de sesión:', result.message);
-            }
-          } catch (error) {
-            console.error('Error al analizar la respuesta JSON:', error);
-            console.error('Respuesta del servidor (texto):', text);
-          }
-        })
-        .catch(error => {
-          console.error('Error en la solicitud fetch:', error);
-        });
-    },*/
   created: function () {
     this.listarVehiculos(); // Llama al método para listar los vehículos cuando se crea la instancia de Vue
   },

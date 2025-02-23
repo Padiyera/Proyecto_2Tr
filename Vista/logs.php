@@ -39,7 +39,8 @@
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Fecha y Hora</th>
-                                    <th>Acciones</th>
+                                    <th>Acción</th>
+                                    <th>Administración</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,6 +48,7 @@
                                     <td>{{log.id}}</td>
                                     <td>{{log.username}}</td>
                                     <td>{{log.login_time}}</td>
+                                    <td>{{log.action}}</td>
                                     <td>
                                         <button class="btn btn-danger" title="Eliminar" @click="btnBorrarLog(log.id)"><i class="fas fa-trash-alt"></i></button>
                                     </td>

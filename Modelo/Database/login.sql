@@ -27,13 +27,15 @@ INSERT INTO users (username, password, email) VALUES ('user14', 'password14', 'u
 INSERT INTO users (username, password, email) VALUES ('user15', 'password15', 'user15@example.com');
 INSERT INTO users (username, password, email) VALUES ('admin', 'admin', 'admin@example.com');
 
+DROP TABLE IF EXISTS user_logs;
+
 CREATE TABLE IF NOT EXISTS user_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     login_time DATETIME NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
 );
-
+ALTER TABLE user_logs ADD COLUMN action VARCHAR(255) NOT NULL;
 
 -- Create the table para los vehiculos
  CREATE TABLE `vehiculos` (

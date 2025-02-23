@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
     let button = document.getElementById('formLogin');
     let usuario = document.getElementById('usuario');
     let password = document.getElementById('password');
+    let usuarioo = document.getElementById('usuario').value; // Obtener el valor del campo de entradaa
     let alert = document.getElementById('alerta');
 
     // Añadir estilos para la animación de giro
@@ -27,42 +28,46 @@ window.addEventListener('load', () => {
     //funcion que envia estos datos mediante fetch
     function data() {
         let datos = new FormData();
-        datos.append("usuario", usuario.value);
-        datos.append("password", password.value);
-
+        datos.append("usuario", usuario.value); // Enviar el valor del campo de usuario
+        datos.append("password", password.value); // Enviar el valor del campo de contraseña
+      
         fetch('Controlador/login.php', {
-            method: 'POST',
-            body: datos
+          method: 'POST',
+          body: datos
         })
-            .then(response => response.text()) // Cambiar a text() para depurar
-            .then(text => {
-                console.log(text); // Verificar el contenido de la respuesta
-                try {
-                    const jsonResponse = JSON.parse(text);
-                    if (jsonResponse.success === 1) {
-                        ocultarAll();
-                        logUserLogin(usuario.value);
-                        showTimelapse();
-                    } else {
-                        alertaFail();
-                    }
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
-                    alertaFail();
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                alerta();
-            });
-    }
+          .then(response => response.text()) // Cambiar a text() para depurar
+          .then(text => {
+            console.log(text); // Verificar el contenido de la respuesta
+            try {
+              const jsonResponse = JSON.parse(text);
+              if (jsonResponse.success === 1) {
+                // Almacenar el nombre de usuario en localStorage
+                localStorage.setItem('currentUser', usuarioo.value);
+      
+                ocultarAll();
+                logUserLogin(usuario.value);
+                showTimelapse();
+              } else {
+                alertaFail();
+              }
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
+              alertaFail();
+            }
+          })
+          .catch(error => {
+            console.error('Fetch error:', error);
+            alerta();
+          });
+      }
 
     function logUserLogin(usuario) {
-        // Crear un objeto con los datos del usuario
+        // Crear un objeto con los datos del usuario y la acción
         const data = {
-            usuario: usuario
+            usuario: usuario,
+            action: 'inicio sesión' // Añadir la acción "inicio sesión"
         };
-    
+
         // Enviar los datos al servidor usando fetch
         fetch('Modelo/log_login.php', {
             method: 'POST',
@@ -71,30 +76,31 @@ window.addEventListener('load', () => {
             },
             body: JSON.stringify(data)
         })
-        .then(response => {
-            // Verificar si la respuesta es OK (código 200)
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: ' + response.statusText);
-            }
-            return response.text(); // Leer la respuesta como texto primero
-        })
-        .then(text => {
-            console.log('Respuesta del servidor:', text); // Mostrar la respuesta en la consola
-            try {
-                const result = JSON.parse(text); // Intentar analizar la respuesta como JSON
-                if (result.status === 'success') {
-                    console.log('Log de inicio de sesión guardado correctamente');
-                } else {
-                    console.error('Error al guardar el log de inicio de sesión:', result.message);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.statusText);
                 }
-            } catch (error) {
-                console.error('Error al analizar la respuesta JSON:', error);
-                console.error('Respuesta del servidor (texto):', text);
-            }
-        })
-        .catch(error => {
-            console.error('Error en la solicitud fetch:', error);
-        });
+                return response.text();
+            })
+            .then(text => {
+                console.log('Respuesta del servidor:', text);
+                try {
+                    const result = JSON.parse(text);
+                    if (result.status === 'success') {
+                        console.log('Log de inicio de sesión guardado correctamente');
+                        // Guardar el nombre de usuario en una cookie
+                        document.cookie = `currentUser=${usuario}; path=/`;
+                    } else {
+                        console.error('Error al guardar el log de inicio de sesión:', result.message);
+                    }
+                } catch (error) {
+                    console.error('Error al analizar la respuesta JSON:', error);
+                    console.error('Respuesta del servidor (texto):', text);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud fetch:', error);
+            });
     }
 
     //funcion que muestra la imagen y la hace girar
@@ -116,7 +122,7 @@ window.addEventListener('load', () => {
         document.body.appendChild(timelapseContainer);
         setTimeout(() => {
             document.body.removeChild(timelapseContainer);
-            location.href = 'Vista/adminGrua.php';
+            location.href = 'Vista/principal.php';
         }, 1000);
     }
 
@@ -251,7 +257,7 @@ window.addEventListener('load', () => {
 
     }
 
-    function ocultarAll(){
+    function ocultarAll() {
         formLog.classList.toggle('hidden');
     }
 

@@ -12,12 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Verificar si los datos JSON son válidos
-    if ($data === null || !isset($data['usuario'])) {
+    if ($data === null || !isset($data['usuario']) || !isset($data['action'])) {
         echo json_encode(['status' => 'error', 'message' => 'Datos JSON inválidos o faltantes']);
         exit();
     }
 
     $usuario = $data['usuario'];
+    $action = $data['action'];
 
     // Obtener la fecha y hora actual
     $login_time = date('Y-m-d H:i:s');
@@ -27,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = $conexion->Conectar();
 
     // Preparar la consulta SQL para insertar el log
-    $stmt = $conn->prepare("INSERT INTO user_logs (username, login_time) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO user_logs (username, login_time, action) VALUES (?, ?, ?)");
     if ($stmt === false) {
         echo json_encode(['status' => 'error', 'message' => 'Error al preparar la consulta: ' . $conn->error]);
         exit();
     }
 
-    $stmt->bind_param("ss", $usuario, $login_time);
+    $stmt->bind_param("sss", $usuario, $login_time, $action);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
