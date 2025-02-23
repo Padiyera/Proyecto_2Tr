@@ -1,0 +1,109 @@
+body {
+    background: #f4f4f4;
+    /* Fondo más claro y moderno */
+    font-family: 'Arial', sans-serif;
+    /* Fuente más legible */
+  }
+  
+  /* Estilos DataTable */
+  #usuariosTable {
+    width: 100% !important;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    /* Bordes redondeados */
+    overflow: hidden;
+    /* Para que los bordes redondeados se apliquen correctamente */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+  }
+  
+  #usuariosTable_wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  #usuariosTable th,
+  #usuariosTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  #usuariosTable th {
+    background-color: #007bff;
+    /* Color de encabezado más moderno */
+    color: white;
+    font-weight: bold;
+  }
+  
+  #usuariosTable tr:nth-child(even) {
+    background-color: #f8f9fa;
+    /* Fondo alterno para filas */
+  }
+  
+  #usuariosTable tr:hover {
+    background-color: #e9ecef;
+    /* Efecto hover en filas */
+  }
+  
+  /* Estilos para los botones */
+  .btn-success {
+    background-color: #28a745;
+    /* Verde más moderno */
+    border-color: #28a745;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+    /* Azul más moderno */
+    border-color: #17a2b8;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    /* Gris más moderno */
+    border-color: #6c757d;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    /* Rojo más moderno */
+    border-color: #dc3545;
+  }
+  
+  .btn {
+    margin: 2px;
+    /* Espaciado entre botones */
+    border-radius: 4px;
+    /* Bordes redondeados para botones */
+  }
+  
+  /* Estilos para los badges */
+  .badge-success {
+    background-color: #28a745;
+    /* Verde más moderno */
+  }
+  
+  .badge-primary {
+    background-color: #007bff;
+    /* Azul más moderno */
+  }
+  
+  /* Estilos para el header */
+  header {
+    background-color: #007bff;
+    /* Color de fondo del header */
+    color: white;
+    padding: 15px 0;
+    border-radius: 8px;
+    /* Bordes redondeados */
+    margin-bottom: 20px;
+  }
+  
+  header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
