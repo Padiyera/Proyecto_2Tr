@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../Modelo/conexion.php");
 
 $conexion = new Conexion();
@@ -22,9 +23,12 @@ if (isset($_POST['usuario']) && !empty($_POST['usuario']) && isset($_POST['passw
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        $_SESSION['currentUser'] = $usuario;
+        $_SESSION['last_activity'] = time(); // Tiempo de la última actividad
+        setcookie('currentUser', $usuario, time() + 1800, "/"); // Cookie expira en 30 minutos
         echo json_encode(array('success' => 1));
     } else {
-        echo json_encode(array('success' => 0));
+        echo json_encode(array('success' => 0, 'message' => 'Invalid username or password'));
     }
 } else {
     echo json_encode(array('success' => 0, 'message' => 'Invalid input'));

@@ -3,6 +3,27 @@ var url = "../Modelo/crud.php"; // URL del archivo PHP que maneja las operacione
 // URL del archivo PHP que maneja las operaciones de logs
 var urlLogs = "../Modelo/logs.php";
 
+//Coockies para evitar entrar mediante url
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for (let i = 0; i < cookieArr.length; i++) {
+    let cookiePair = cookieArr[i].split("=");
+    if (name == cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+}
+
+var currentUser = getCookie('currentUser');
+console.log('Usuario actual:', currentUser);
+
+if (!currentUser) {
+  // Redirigir al login si no hay usuario actual
+  window.location.href = '../index.html';
+}
+//hasta aqui 
+
 // Función para registrar acciones de los usuarios
 function logAction(currentUser, action) {
   if (!currentUser) {
@@ -38,20 +59,6 @@ function logAction(currentUser, action) {
     console.error('Configuración de la solicitud:', error.config);
   });
 }
-
-function getCookie(name) {
-  let cookieArr = document.cookie.split(";");
-  for (let i = 0; i < cookieArr.length; i++) {
-    let cookiePair = cookieArr[i].split("=");
-    if (name == cookiePair[0].trim()) {
-      return decodeURIComponent(cookiePair[1]);
-    }
-  }
-  return null;
-}
-
-var currentUser = getCookie('currentUser');
-console.log('Usuario actual:', currentUser);
 
 var appVehiculos = new Vue({
   el: "#appVehiculos", // Elemento HTML donde se monta la instancia de Vue

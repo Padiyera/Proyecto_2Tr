@@ -1,7 +1,20 @@
 <?php
+session_start();
 // Habilitar el reporte de errores para depuración
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Verificar si la sesión está activa
+if (!isset($_SESSION['currentUser']) || (time() - $_SESSION['last_activity']) > 1800) {
+    // Si la sesión no está activa o ha expirado, destruir la sesión y salir
+    session_unset();
+    session_destroy();
+    echo json_encode(['status' => 'error', 'message' => 'Sesión expirada o no válida']);
+    exit();
+}
+
+// Actualizar el tiempo de la última actividad
+$_SESSION['last_activity'] = time();
 
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
