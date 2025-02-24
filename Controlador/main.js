@@ -281,6 +281,8 @@ var appVehiculos = new Vue({
     },
     // Método para retirar un vehículo
     btnRetirar: async function (idvehiculos, matricula, agente) {
+      const currentDateTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
+
       const { value: formValues, isDismissed } = await Swal.fire({
         title: 'Retirar Vehículo',
         html:
@@ -290,11 +292,11 @@ var appVehiculos = new Vue({
           '<div class="row"><label class="col-sm-3 col-form-label">Población</label><div class="col-sm-9"><input id="poblacion" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Provincia</label><div class="col-sm-9"><input id="provincia" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Permiso</label><div class="col-sm-9"><input id="permiso" type="text" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha</label><div class="col-sm-9"><input id="fecha" type="datetime-local" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Fecha</label><div class="col-sm-9"><input id="fecha" type="datetime-local" class="form-control" value="' + currentDateTime + '" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Importe Retirada</label><div class="col-sm-9"><input id="importeretirada" type="number" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Importe Depósito</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Total</label><div class="col-sm-9"><input id="total" type="number" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Opciones de Pago</label><div class="col-sm-9"><input id="opcionespago" type="text" class="form-control"></div></div>',
+          '<div class="row"><label class="col-sm-3 col-form-label">Opciones de Pago</label><div class="col-sm-9"><select id="opcionespago" class="form-control"><option value="Metalico">Metalico</option><option value="Tarjeta">Tarjeta</option><option value="Bizum">Bizum</option></select></div></div>',
         focusConfirm: false,
         showCancelButton: true,
         confirmButtonText: 'Guardar',
@@ -357,7 +359,8 @@ var appVehiculos = new Vue({
           icon: 'success',
           title: '¡Vehículo retirado!'
         })
-        this.listarVehiculos(); // Actualizar la lista de vehículos
+        this.listarVehiculos(); 
+        logAction(currentUser, 'Retirada');
       }).catch(error => {
         console.error("Error al retirar el vehículo:", error);
       });
