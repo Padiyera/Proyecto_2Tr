@@ -98,7 +98,7 @@ var appVehiculos = new Vue({
           '<div class="row"><label class="col-sm-3 col-form-label">Motivo</label><div class="col-sm-9"><input id="motivo" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Tipo Vehículo</label><div class="col-sm-9"><select id="tipovehiculo" class="form-control"><option value="Motocicleta, aperos, motocarros y similares">Motocicleta, aperos, motocarros y similares</option><option value="Turismo hasta 12 cv o Remolques hasta 750 kg">Turismo hasta 12 cv o Remolques hasta 750 kg</option><option value="Turismos más de 12 cv o Remolques más de 750 kg">Turismos más de 12 cv o Remolques más de 750 kg</option><option value="Vehículos especiales">Vehículos especiales</option><option value="Vehículos de cortesía">Vehículos de cortesía</option><option value="Chatarra">Chatarra</option></select></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Grua</label><div class="col-sm-9"><select id="grua" class="form-control"><option value="Grua H01">Grua H01</option><option value="Grua H02">Grua H02</option><option value="Grua H03">Grua H03</option></select></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Estado</label><div class="col-sm-9"><select id="estado" class="form-control"><option value="Liquidado">Liquidado</option><option value="En deposito">En deposito</option></select></div></div>',
+          '<div class="row"><label class="col-sm-3 col-form-label">Estado</label><div class="col-sm-9"><select id="estado" class="form-control"><option value="En deposito">En deposito</option><option value="Liquidado">Liquidado</option></select></div></div>',
         focusConfirm: false,
         showCancelButton: true,
         confirmButtonText: 'Guardar',
@@ -178,8 +178,8 @@ var appVehiculos = new Vue({
           '<option value="Grua H03"' + (grua === 'Grua H03' ? ' selected' : '') + '>Grua H03</option>' +
           '</select></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Estado</label><div class="col-sm-9"><select id="estado" class="form-control">' +
-          '<option value="Liquidado"' + (estado === 'Liquidado' ? ' selected' : '') + '>Liquidado</option>' +
           '<option value="En deposito"' + (estado === 'En deposito' ? ' selected' : '') + '>En deposito</option>' +
+          '<option value="Liquidado"' + (estado === 'Liquidado' ? ' selected' : '') + '>Liquidado</option>' +
           '</select></div></div>' +
           '</div>',
         focusConfirm: false,
@@ -266,8 +266,8 @@ var appVehiculos = new Vue({
           '<option value="Grua H03"' + (grua === 'Grua H03' ? ' selected' : '') + '>Grua H03</option>' +
           '</select></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Estado</label><div class="col-sm-9"><select id="estado" class="form-control" disabled>' +
-          '<option value="Liquidado"' + (estado === 'Liquidado' ? ' selected' : '') + '>Liquidado</option>' +
           '<option value="En deposito"' + (estado === 'En deposito' ? ' selected' : '') + '>En deposito</option>' +
+          '<option value="Liquidado"' + (estado === 'Liquidado' ? ' selected' : '') + '>Liquidado</option>' +
           '</select></div></div>',
         focusConfirm: false,
         showCancelButton: true,
