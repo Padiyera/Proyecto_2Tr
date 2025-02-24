@@ -19,6 +19,18 @@ $motivo = (isset($_POST['motivo'])) ? $_POST['motivo'] : ''; // Obtiene el valor
 $tipovehiculo = (isset($_POST['tipovehiculo'])) ? $_POST['tipovehiculo'] : ''; // Obtiene el valor de 'tipovehiculo' del array $_POST, si no está definido, asigna una cadena vacía
 $grua = (isset($_POST['grua'])) ? $_POST['grua'] : ''; // Obtiene el valor de 'grua' del array $_POST, si no está definido, asigna una cadena vacía
 $estado = (isset($_POST['estado'])) ? $_POST['estado'] : ''; // Obtiene el valor de 'estado' del array $_POST, si no está definido, asigna una cadena vacía
+$idvehiculos = (isset($_POST['idvehiculos'])) ? $_POST['idvehiculos'] : '';
+$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
+$nif = (isset($_POST['nif'])) ? $_POST['nif'] : '';
+$domicilio = (isset($_POST['domicilio'])) ? $_POST['domicilio'] : '';
+$poblacion = (isset($_POST['poblacion'])) ? $_POST['poblacion'] : '';
+$provincia = (isset($_POST['provincia'])) ? $_POST['provincia'] : '';
+$permiso = (isset($_POST['permiso'])) ? $_POST['permiso'] : '';
+$fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
+$importeretirada = (isset($_POST['importeretirada'])) ? $_POST['importeretirada'] : '';
+$importedeposito = (isset($_POST['importedeposito'])) ? $_POST['importedeposito'] : '';
+$total = (isset($_POST['total'])) ? $_POST['total'] : '';
+$opcionespago = (isset($_POST['opcionespago'])) ? $_POST['opcionespago'] : '';
 
 switch ($opcion) { // Evalúa la variable $opcion para determinar qué operación realizar
     case 1: // Opción 1: Insertar un nuevo registro en la tabla 'vehiculos'
@@ -41,6 +53,15 @@ switch ($opcion) { // Evalúa la variable $opcion para determinar qué operació
         $resultado = $conexion->prepare($consulta); // Prepara la consulta SQL
         $resultado->execute(); // Ejecuta la consulta
         $data = $resultado->get_result()->fetch_all(MYSQLI_ASSOC); // Obtiene todos los resultados de la consulta en un array asociativo
+        break;
+    case 5: // Nueva opción para insertar una retirada
+        $consulta = "INSERT INTO retiradas (idvehiculos, nombre, nif, domicilio, poblacion, provincia, permiso, fecha, agente, importeretirada, importedeposito, total, opcionespago) VALUES ('$idvehiculos', '$nombre', '$nif', '$domicilio', '$poblacion', '$provincia', '$permiso', '$fecha', '$agente', '$importeretirada', '$importedeposito', '$total', '$opcionespago')";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+         // Actualizar el estado del vehículo a "Liquidado"
+         $consulta = "UPDATE vehiculos SET estado='Liquidado' WHERE id='$idvehiculos'";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
         break;
 }
 print json_encode($data, JSON_UNESCAPED_UNICODE); // Codifica el array $data en formato JSON y lo imprime

@@ -279,6 +279,89 @@ var appVehiculos = new Vue({
       });
       logAction(currentUser, 'Ver vehículo');
     },
+    // Método para retirar un vehículo
+    btnRetirar: async function (idvehiculos, matricula, agente) {
+      const { value: formValues, isDismissed } = await Swal.fire({
+        title: 'Retirar Vehículo',
+        html:
+          '<div class="row"><label class="col-sm-3 col-form-label">Nombre</label><div class="col-sm-9"><input id="nombre" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">NIF</label><div class="col-sm-9"><input id="nif" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Domicilio</label><div class="col-sm-9"><input id="domicilio" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Población</label><div class="col-sm-9"><input id="poblacion" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Provincia</label><div class="col-sm-9"><input id="provincia" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Permiso</label><div class="col-sm-9"><input id="permiso" type="text" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Fecha</label><div class="col-sm-9"><input id="fecha" type="datetime-local" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Importe Retirada</label><div class="col-sm-9"><input id="importeretirada" type="number" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Importe Depósito</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Total</label><div class="col-sm-9"><input id="total" type="number" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Opciones de Pago</label><div class="col-sm-9"><input id="opcionespago" type="text" class="form-control"></div></div>',
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        confirmButtonColor: '#1cc88a',
+        cancelButtonColor: '#3085d6',
+        preConfirm: () => {
+          return [
+            document.getElementById('nombre').value,
+            document.getElementById('nif').value,
+            document.getElementById('domicilio').value,
+            document.getElementById('poblacion').value,
+            document.getElementById('provincia').value,
+            document.getElementById('permiso').value,
+            document.getElementById('fecha').value,
+            document.getElementById('importeretirada').value,
+            document.getElementById('importedeposito').value,
+            document.getElementById('total').value,
+            document.getElementById('opcionespago').value
+          ]
+        }
+      });
+
+      if (isDismissed) {
+        return; // Si se cancela, no hacer nada
+      }
+
+      const [nombre, nif, domicilio, poblacion, provincia, permiso, fecha, importeretirada, importedeposito, total, opcionespago] = formValues;
+
+      if (!nombre || !nif || !domicilio || !poblacion || !provincia || !permiso || !fecha || !importeretirada || !importedeposito || !total || !opcionespago) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Datos incompletos',
+        });
+        return;
+      }
+
+      axios.post(url, {
+        opcion: 5, // Opción para insertar una nueva retirada
+        idvehiculos: idvehiculos,
+        nombre: nombre,
+        nif: nif,
+        domicilio: domicilio,
+        poblacion: poblacion,
+        provincia: provincia,
+        permiso: permiso,
+        fecha: fecha,
+        agente: agente,
+        importeretirada: importeretirada,
+        importedeposito: importedeposito,
+        total: total,
+        opcionespago: opcionespago
+      }).then(response => {
+        const Toastt = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+        Toastt.fire({
+          icon: 'success',
+          title: '¡Vehículo retirado!'
+        })
+        this.listarVehiculos(); // Actualizar la lista de vehículos
+      }).catch(error => {
+        console.error("Error al retirar el vehículo:", error);
+      });
+    },
     // Procedimientos para el CRUD     
     listarVehiculos: function () {
       axios.post(url, { opcion: 4 }).then(response => {
