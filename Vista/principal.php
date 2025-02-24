@@ -53,7 +53,7 @@
                                     <td>{{vehiculo.fechaentrada}}</td>
                                     <td>{{vehiculo.fechasalida}}</td>
                                     <td>{{vehiculo.matricula}}</td>
-                                    <td>{{vehiculo.estado}}</td>
+                                    <td :class="{'estado-en-deposito': vehiculo.estado === 'En deposito', 'estado-liquidado': vehiculo.estado === 'Liquidado'}">{{vehiculo.estado}}</td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-info mr-3" title="Ver" @click="btnVer(vehiculo.id, vehiculo.fechaentrada, vehiculo.fechasalida, vehiculo.lugar, vehiculo.direccion, vehiculo.agente, vehiculo.matricula, vehiculo.marca, vehiculo.modelo, vehiculo.color, vehiculo.motivo, vehiculo.tipovehiculo, vehiculo.grua, vehiculo.estado)"><i class="fas fa-eye"></i></button>

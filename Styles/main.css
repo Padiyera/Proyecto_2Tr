@@ -107,3 +107,33 @@ header h2 {
   font-size: 24px;
   font-weight: bold;
 }
+
+.en-deposito {
+  background-color: green;
+  color: white;
+}
+
+.liquidado {
+  background-color: red;
+  color: white;
+}
+
+.estado-en-deposito {
+  color: white;
+  background-color: #6c757d; 
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px; 
+}
+
+.estado-liquidado {
+  color: white;
+  background-color: #dc3545;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+}
