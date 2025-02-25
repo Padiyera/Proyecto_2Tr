@@ -280,8 +280,9 @@ var appVehiculos = new Vue({
       logAction(currentUser, 'Ver vehículo');
     },
     // Método para retirar un vehículo
-    btnRetirar: async function (idvehiculos, matricula, agente) {
+    btnRetirar: async function (idvehiculos, matricula, agente, tipovehiculo) {
       const currentDateTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
+      const importeDeposito = this.calcularImporteDeposito(tipovehiculo); // Calcular el importe del depósito
 
       const { value: formValues, isDismissed } = await Swal.fire({
         title: 'Retirar Vehículo',
@@ -294,7 +295,7 @@ var appVehiculos = new Vue({
           '<div class="row"><label class="col-sm-3 col-form-label">Permiso</label><div class="col-sm-9"><input id="permiso" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha</label><div class="col-sm-9"><input id="fecha" type="datetime-local" class="form-control" value="' + currentDateTime + '" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Importe Retirada</label><div class="col-sm-9"><input id="importeretirada" type="number" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Importe Depósito</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Importe Depósito</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control" value="' + importeDeposito + '" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Total</label><div class="col-sm-9"><input id="total" type="number" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Opciones de Pago</label><div class="col-sm-9"><select id="opcionespago" class="form-control"><option value="Metalico">Metalico</option><option value="Tarjeta">Tarjeta</option><option value="Bizum">Bizum</option></select></div></div>',
         focusConfirm: false,
@@ -364,6 +365,24 @@ var appVehiculos = new Vue({
       }).catch(error => {
         console.error("Error al retirar el vehículo:", error);
       });
+    },
+    // Método para calcular el importe del depósito basado en el tipo de vehículo
+    calcularImporteDeposito: function (tipovehiculo) {
+      switch (tipovehiculo) {
+        case 'Motocicleta, aperos, motocarros y similares':
+          return 25;
+        case 'Turismo hasta 12 cv o Remolques hasta 750 kg':
+          return 100;
+        case 'Turismos más de 12 cv o Remolques más de 750 kg':
+          return 130;
+        case 'Vehículos especiales':
+          return 150;
+        case 'Vehículos de cortesía':
+        case 'Chatarra':
+          return 0;
+        default:
+          return 50;
+      }
     },
     // Procedimientos para el CRUD     
     listarVehiculos: function () {
