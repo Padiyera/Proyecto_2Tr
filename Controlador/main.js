@@ -281,6 +281,10 @@ var appVehiculos = new Vue({
     },
     // Método para retirar un vehículo
     btnRetirar: async function (idvehiculos, matricula, agente, tipovehiculo) {
+      if (!tipovehiculo) {
+        console.error('Error: tipoVehiculo es undefined');
+        return;
+      }
       const currentDateTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
       const importeDeposito = this.calcularImporteDeposito(tipovehiculo); // Calcular el importe del depósito
 
@@ -360,7 +364,7 @@ var appVehiculos = new Vue({
           icon: 'success',
           title: '¡Vehículo retirado!'
         })
-        this.listarVehiculos(); 
+        this.listarVehiculos();
         logAction(currentUser, 'Retirada');
       }).catch(error => {
         console.error("Error al retirar el vehículo:", error);
@@ -368,6 +372,8 @@ var appVehiculos = new Vue({
     },
     // Método para calcular el importe del depósito basado en el tipo de vehículo
     calcularImporteDeposito: function (tipovehiculo) {
+      console.log('Calculando importe para:', tipovehiculo); // Verifica el valor de tipovehiculo
+
       switch (tipovehiculo) {
         case 'Motocicleta, aperos, motocarros y similares':
           return 25;
@@ -381,6 +387,7 @@ var appVehiculos = new Vue({
         case 'Chatarra':
           return 0;
         default:
+          console.warn('Tipo de vehículo no reconocido:', tipovehiculo); // Advertencia si el tipo no es reconocido
           return 50;
       }
     },
