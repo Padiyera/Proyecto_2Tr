@@ -280,14 +280,15 @@ var appVehiculos = new Vue({
       logAction(currentUser, 'Ver vehículo');
     },
     // Método para retirar un vehículo
-    btnRetirar: async function (idvehiculos, matricula, agente, tipovehiculo) {
+    btnRetirar: async function (idvehiculos, matricula, agente, tipovehiculo, fechaentrada) {
       if (!tipovehiculo) {
         console.error('Error: tipoVehiculo es undefined');
         return;
       }
       const currentDateTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
       const importeDeposito = this.calcularImporteDeposito(tipovehiculo); // Calcular el importe del depósito
-
+      const importeRetirada = this.calcularImporteRetirada(fechaentrada, tipovehiculo); // Calcular el importe de retirada
+      const totalImportes = importeDeposito + importeRetirada; // Calcular el total
       const { value: formValues, isDismissed } = await Swal.fire({
         title: 'Retirar Vehículo',
         html:
@@ -298,9 +299,9 @@ var appVehiculos = new Vue({
           '<div class="row"><label class="col-sm-3 col-form-label">Provincia</label><div class="col-sm-9"><input id="provincia" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Permiso</label><div class="col-sm-9"><input id="permiso" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha</label><div class="col-sm-9"><input id="fecha" type="datetime-local" class="form-control" value="' + currentDateTime + '" readonly></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Importe Retirada</label><div class="col-sm-9"><input id="importeretirada" type="number" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Importe Depósito</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control" value="' + importeDeposito + '" readonly></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Total</label><div class="col-sm-9"><input id="total" type="number" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Retirada €</label><div class="col-sm-9"><input id="importeretirada" type="number" class="form-control" value="' + importeRetirada + '" readonly></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Depósito €</label><div class="col-sm-9"><input id="importedeposito" type="number" class="form-control" value="' + importeDeposito + '" readonly></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Total €</label><div class="col-sm-9"><input id="total" type="number" class="form-control" value="' + totalImportes + '" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Opciones de Pago</label><div class="col-sm-9"><select id="opcionespago" class="form-control"><option value="Metalico">Metalico</option><option value="Tarjeta">Tarjeta</option><option value="Bizum">Bizum</option></select></div></div>',
         focusConfirm: false,
         showCancelButton: true,
@@ -390,6 +391,28 @@ var appVehiculos = new Vue({
           console.warn('Tipo de vehículo no reconocido:', tipovehiculo); // Advertencia si el tipo no es reconocido
           return 50;
       }
+    },
+    calcularImporteRetirada: function (fechaentrada, tipovehiculo) {
+      const tarifas = {
+        'Motocicleta, aperos, motocarros y similares': 8,
+        'Turismo hasta 12 cv o Remolques hasta 750 kg': 8,
+        'Turismos más de 12 cv o Remolques más de 750 kg': 10,
+        'Vehículos especiales': 20,
+        'Vehículos de cortesía': 15,
+        'Chatarra': 5
+      };
+
+      const fechaEntrada = new Date(fechaentrada);
+      const fechaActual = new Date();
+      const horasTranscurridas = Math.floor((fechaActual - fechaEntrada) / (1000 * 60 * 60));
+
+      let importeRetirada = 0;
+      if (horasTranscurridas > 24) {
+        const horasCobrables = horasTranscurridas - 24;
+        importeRetirada = horasCobrables * tarifas[tipovehiculo];
+      }
+
+      return importeRetirada;
     },
     // Procedimientos para el CRUD     
     listarVehiculos: function () {
