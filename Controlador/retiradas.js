@@ -61,6 +61,75 @@ var appRetiradas = new Vue({
         cancelButtonColor: '#3085d6',
         showConfirmButton: false
       });
+    },
+    btnImprimir: function (retirada) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Add company name and details
+      doc.setFontSize(22);
+      doc.text('GruasJuan,S.L.', 10, 20);
+      doc.setFontSize(12);
+      doc.text('Teléfono: 123-456-7890', 140, 20);
+      doc.text('Avd.Santa Marta. Nº8', 140, 25);
+      doc.text('Email: gruasJuan@empresa.com', 140, 30);
+
+      // Add title
+      doc.setFontSize(18);
+      doc.text('Factura Simplificada', 10, 50);
+
+
+      // Add a line under the title
+      doc.setLineWidth(0.5);
+      doc.line(10, 55, 200, 55);
+
+      // Add content
+      doc.setFontSize(12);
+      doc.text(`Factura nº: ${retirada.idvehiculos}`, 10, 75);
+      doc.text(`Fecha: ${retirada.fecha}`, 10, 85);
+      doc.text(`NIF: ${retirada.nif}`, 10, 95);
+
+      // Add a table for the details
+      doc.autoTable({
+        startY: 100,
+        head: [['Descripción', 'Total']],
+        body: [
+          ['Retirada', `${retirada.importeretirada} €`],
+          ['Depósito', `${retirada.importedeposito} €`],
+        ],
+        theme: 'grid', // Mantiene solo las líneas de la tabla
+        styles: {
+          lineWidth: 0.1, // Grosor mínimo de las líneas
+          lineColor: [0, 0, 0], // Líneas en negro
+          fillColor: false, // Desactiva colores de fondo
+          textColor: [0, 0, 0], // Texto en negro
+        },
+        headStyles: {
+          fillColor: false, // Sin fondo en el encabezado
+          textColor: [0, 0, 0], // Texto en negro
+          lineWidth: 0.1, // Línea delgada
+          lineColor: [0, 0, 0], // Líneas en negro
+        },
+        bodyStyles: {
+          fillColor: false, // Sin fondo en el cuerpo
+          textColor: [0, 0, 0], // Texto en negro
+          lineWidth: 0.1, // Línea delgada
+          lineColor: [0, 0, 0], // Líneas en negro
+        }
+      });
+
+      // Add total
+      doc.setFontSize(14);
+      doc.text(`Total de la retirada: ${retirada.total} €`, 10, doc.autoTable.previous.finalY + 10);
+      doc.setFontSize(12);
+      doc.text(`Pago mediante: ${retirada.opcionespago} `, 10, doc.autoTable.previous.finalY + 20);
+
+      // Add a footer
+      doc.setFontSize(10);
+      doc.text('Todos los derechos reservados a GrusJuan,S.L.', 10, 280);
+
+      // Save the PDF
+      doc.save(`Factura_${retirada.idvehiculos}.pdf`);
     }
   },
   created: function () {

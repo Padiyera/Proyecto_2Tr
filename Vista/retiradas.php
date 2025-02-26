@@ -46,6 +46,7 @@
                                     <td>{{retirada.total}}</td>
                                     <td>
                                         <button class="btn btn-info" @click="btnVer(retirada)"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-primary" @click="btnImprimir(retirada)"><i class="fas fa-print"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -67,6 +68,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <!--Código custom -->
     <script src="../Controlador/retiradas.js"></script>
 </body>
