@@ -21,7 +21,7 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="principal.php">
             <img src="../images/carV.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
             GruasJuan,S.L
         </a>
