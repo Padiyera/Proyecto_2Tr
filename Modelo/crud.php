@@ -58,10 +58,16 @@ switch ($opcion) { // Evalúa la variable $opcion para determinar qué operació
         $consulta = "INSERT INTO retiradas (idvehiculos, nombre, nif, domicilio, poblacion, provincia, permiso, fecha, agente, importeretirada, importedeposito, total, opcionespago) VALUES ('$idvehiculos', '$nombre', '$nif', '$domicilio', '$poblacion', '$provincia', '$permiso', '$fecha', '$agente', '$importeretirada', '$importedeposito', '$total', '$opcionespago')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-         // Actualizar el estado del vehículo a "Liquidado"
-         $consulta = "UPDATE vehiculos SET estado='Liquidado' WHERE id='$idvehiculos'";
-         $resultado = $conexion->prepare($consulta);
-         $resultado->execute();
+        // Actualizar el estado del vehículo a "Liquidado"
+        $consulta = "UPDATE vehiculos SET estado='Liquidado' WHERE id='$idvehiculos'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        break;
+    case 6: // Opción 6: Seleccionar todos los registros de la tabla 'retiradas'
+        $consulta = "SELECT idvehiculos, nombre, nif, domicilio, poblacion, provincia, permiso, fecha, agente, importeretirada, importedeposito, total, opcionespago FROM retiradas";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->get_result()->fetch_all(MYSQLI_ASSOC);
         break;
 }
 print json_encode($data, JSON_UNESCAPED_UNICODE); // Codifica el array $data en formato JSON y lo imprime

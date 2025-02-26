@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="#" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- FontAwesom CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Sweet Alert 2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.16.1/dist/sweetalert2.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <!--CSS custom -->
+    <link rel="stylesheet" href="../Styles/main.css">
+</head>
+
+<body>
+    <header>
+        <h2 class="text-center text-dark"><span class="badge badge-success">Retiradas</span></h2>
+    </header>
+
+    <div id="appRetiradas">
+        <div class="container-fluid">
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table id="retiradasTable" class="table table-striped">
+                            <thead>
+                                <tr class="bg-primary text-light">
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(retirada, indice) of retiradas" :key="indice">
+                                    <td>{{retirada.idvehiculos}}</td>
+                                    <td>{{retirada.nombre}}</td>
+                                    <td>{{retirada.fecha}}</td>
+                                    <td>{{retirada.total}}</td>
+                                    <td>
+                                        <button class="btn btn-info" @click="btnVer(retirada)"><i class="fas fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="../jquery/jquery-3.3.1.min.js"></script>
+    <script src="../popper/popper.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!--Vue.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+    <!--Sweet Alert 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!--Código custom -->
+    <script src="../Controlador/retiradas.js"></script>
+</body>
+
+</html>
