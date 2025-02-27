@@ -18,6 +18,10 @@ console.log('Usuario actual:', currentUser);
 if (!currentUser) {
   // Redirigir al login si no hay usuario actual
   window.location.href = '../index.html';
+} else if (currentUser !== 'admin') {
+  // Si el usuario no es admin, ocultar las vistas de Usuarios y Logs
+  document.querySelector('a[href="adminGrua.php"]').style.display = 'none';
+  document.querySelector('a[href="logs.php"]').style.display = 'none';
 }
 //hasta aqui 
 // URL del archivo PHP que maneja las operaciones de logs
