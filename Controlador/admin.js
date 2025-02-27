@@ -1,4 +1,44 @@
-var url = "../Modelo/admin.php"; 
+var urlLogs = "../Modelo/logs.php";
+// Función para registrar acciones de los usuarios
+function logAction(currentUser, action) {
+  console.log('logAction called with:', currentUser, action); // Agregar log para verificar los parámetros
+
+  if (!currentUser) {
+    console.error('Error: No hay usuario actual');
+    return;
+  }
+
+  axios.post(urlLogs, {
+    opcion: 3, // Opción para insertar un nuevo log
+    username: currentUser,
+    action: action
+  }).then(response => {
+    console.log('Respuesta completa del servidor:', response);
+    if (response.data && response.data.status === 'success') {
+      console.log('Log de acción guardado correctamente:', response.data.message);
+    } else {
+      console.error('Error al guardar el log de acción:', response.data ? response.data.message : 'Respuesta inesperada del servidor');
+    }
+  }).catch(error => {
+    console.error('Error al guardar el log de acción:', error);
+    if (error.response) {
+      // El servidor respondió con un código de estado fuera del rango 2xx
+      console.error('Respuesta del servidor:', error.response.data);
+      console.error('Estado HTTP:', error.response.status);
+      console.error('Cabeceras:', error.response.headers);
+    } else if (error.request) {
+      // No se recibió respuesta del servidor
+      console.error('No se recibió respuesta del servidor:', error.request);
+    } else {
+      // Error al configurar la solicitud
+      console.error('Error al configurar la solicitud:', error.message);
+    }
+    console.error('Configuración de la solicitud:', error.config);
+  });
+}
+
+
+var url = "../Modelo/admin.php";
 
 function getCookie(name) {
   let cookieArr = document.cookie.split(";");
@@ -20,13 +60,13 @@ if (!currentUser) {
 }
 
 var appUsuarios = new Vue({
-  el: "#appUsuarios", 
+  el: "#appUsuarios",
   data: {
-    users: [], 
-    id: "", 
-    username: "", 
+    users: [],
+    id: "",
+    username: "",
     password: "",
-    email: "", 
+    email: "",
   },
   methods: {
     // Método para el boton de alta (crear un nuevo registro)
@@ -106,7 +146,7 @@ var appUsuarios = new Vue({
           });
         }
       });
-
+      logAction(currentUser, 'Usuario editado');
     },
     // Método para el boton de borrar (eliminar un registro)
     btnBorrar: function (id) {
@@ -131,13 +171,14 @@ var appUsuarios = new Vue({
           )
         }
       })
+      logAction(currentUser, 'Usuario eliminado');
     },
     // Procedimientos para el CRUD     
     listarUsuarios: function () {
       axios.post(url, { opcion: 4 }).then(response => {
         console.log(response.data); // Verificar la respuesta del servidor
         if (Array.isArray(response.data)) {
-          this.users= response.data;
+          this.users = response.data;
           this.inicializarDataTable(); // Inicializar DataTables después de cargar los datos
         } else {
           console.error("La respuesta del servidor no es un array:", response.data);

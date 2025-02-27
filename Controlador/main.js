@@ -1,8 +1,5 @@
 var url = "../Modelo/crud.php"; // URL del archivo PHP que maneja las operaciones CRUD
 
-// URL del archivo PHP que maneja las operaciones de logs
-var urlLogs = "../Modelo/logs.php";
-
 //Coockies para evitar entrar mediante url
 function getCookie(name) {
   let cookieArr = document.cookie.split(";");
@@ -23,7 +20,8 @@ if (!currentUser) {
   window.location.href = '../index.html';
 }
 //hasta aqui 
-
+// URL del archivo PHP que maneja las operaciones de logs
+var urlLogs = "../Modelo/logs.php";
 // Función para registrar acciones de los usuarios
 function logAction(currentUser, action) {
   if (!currentUser) {

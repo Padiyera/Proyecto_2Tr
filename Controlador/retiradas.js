@@ -1,3 +1,42 @@
+var urlLogs = "../Modelo/logs.php";
+// Función para registrar acciones de los usuarios
+function logAction(currentUser, action) {
+  console.log('logAction called with:', currentUser, action); // Agregar log para verificar los parámetros
+
+  if (!currentUser) {
+    console.error('Error: No hay usuario actual');
+    return;
+  }
+
+  axios.post(urlLogs, {
+    opcion: 3, // Opción para insertar un nuevo log
+    username: currentUser,
+    action: action
+  }).then(response => {
+    console.log('Respuesta completa del servidor:', response);
+    if (response.data && response.data.status === 'success') {
+      console.log('Log de acción guardado correctamente:', response.data.message);
+    } else {
+      console.error('Error al guardar el log de acción:', response.data ? response.data.message : 'Respuesta inesperada del servidor');
+    }
+  }).catch(error => {
+    console.error('Error al guardar el log de acción:', error);
+    if (error.response) {
+      // El servidor respondió con un código de estado fuera del rango 2xx
+      console.error('Respuesta del servidor:', error.response.data);
+      console.error('Estado HTTP:', error.response.status);
+      console.error('Cabeceras:', error.response.headers);
+    } else if (error.request) {
+      // No se recibió respuesta del servidor
+      console.error('No se recibió respuesta del servidor:', error.request);
+    } else {
+      // Error al configurar la solicitud
+      console.error('Error al configurar la solicitud:', error.message);
+    }
+    console.error('Configuración de la solicitud:', error.config);
+  });
+}
+
 function getCookie(name) {
   let cookieArr = document.cookie.split(";");
   for (let i = 0; i < cookieArr.length; i++) {
@@ -39,6 +78,7 @@ var appRetiradas = new Vue({
       });
     },
     btnVer: function (retirada) {
+      console.log('btnVer called with:', retirada); // Agregar log para verificar el parámetro retirada
       Swal.fire({
         title: 'Detalles de la Retirada',
         html:
@@ -61,6 +101,7 @@ var appRetiradas = new Vue({
         cancelButtonColor: '#3085d6',
         showConfirmButton: false
       });
+      logAction(currentUser, 'Ver retirada');
     },
     btnImprimir: function (retirada) {
       const { jsPDF } = window.jspdf;
@@ -130,6 +171,7 @@ var appRetiradas = new Vue({
 
       // Save the PDF
       doc.save(`Factura_${retirada.idvehiculos}.pdf`);
+      logAction(currentUser, 'Factura descargada');
     }
   },
   created: function () {
