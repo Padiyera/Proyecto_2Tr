@@ -39,6 +39,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="logs.php">Logs</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Cerrar Sesión</a>
+                </li>
             </ul>
         </div>
     </nav>

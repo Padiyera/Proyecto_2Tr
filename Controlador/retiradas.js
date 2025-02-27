@@ -6,7 +6,7 @@ function logAction(currentUser, action) {
   if (!currentUser) {
     console.error('Error: No hay usuario actual');
     return;
-  } 
+  }
 
   axios.post(urlLogs, {
     opcion: 3, // Opción para insertar un nuevo log
@@ -58,6 +58,13 @@ if (!currentUser) {
   // Si el usuario no es admin, ocultar las vistas de Usuarios y Logs
   document.querySelector('a[href="adminGrua.php"]').style.display = 'none';
   document.querySelector('a[href="logs.php"]').style.display = 'none';
+}
+
+function logout() {
+  // Eliminar la cookie 'currentUser'
+  document.cookie = "currentUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  // Redirigir al index.html
+  window.location.href = '../index.html';
 }
 
 var url = "../Modelo/crud.php"; // URL del archivo PHP que maneja las operaciones CRUD

@@ -23,6 +23,14 @@ if (!currentUser) {
   document.querySelector('a[href="adminGrua.php"]').style.display = 'none';
   document.querySelector('a[href="logs.php"]').style.display = 'none';
 }
+
+function logout() {
+  // Eliminar la cookie 'currentUser'
+  document.cookie = "currentUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  // Redirigir al index.html
+  window.location.href = '../index.html';
+}
+
 //hasta aqui 
 // URL del archivo PHP que maneja las operaciones de logs
 var urlLogs = "../Modelo/logs.php";

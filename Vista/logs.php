@@ -39,6 +39,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="adminGrua.php">Usuarios</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Cerrar Sesión</a>
+                </li>
             </ul>
         </div>
     </nav>
