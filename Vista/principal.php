@@ -45,15 +45,12 @@
             </ul>
         </div>
     </nav>
-    <header>
-        <h2 class="text-center text-dark"><span class="badge badge-success">Vehiculos</span></h2>
-    </header>
 
     <div id="appVehiculos">
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <button @click="btnAlta" class="btn btn-success" title="Nuevo"><i class="fas fa-plus-circle fa-2x"></i></button>
+                    <button @click="btnAlta" class="btn btn-custom" title="Nuevo"><i class="fas fa-plus-circle fa-2x"></i></button>
                 </div>
                 <div class="col text-right">
                     <h5>Vehículos Totales: <span class="badge badge-success">{{totalVehiculos}}</span></h5>
@@ -64,7 +61,7 @@
                     <div class="table-responsive">
                         <table id="vehiculosTable" class="table table-striped">
                             <thead>
-                                <tr class="bg-primary text-light">
+                                <tr style="background-color: #000; color: #fff;">
                                     <th>ID</th>
                                     <th>Fecha Entrada</th>
                                     <th>Fecha Salida</th>

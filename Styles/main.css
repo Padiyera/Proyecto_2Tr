@@ -1,8 +1,6 @@
 body {
   background: #f4f4f4;
-  /* Fondo más claro y moderno */
   font-family: 'Arial', sans-serif;
-  /* Fuente más legible */
 }
 
 /* Estilos DataTable */
@@ -12,11 +10,14 @@ body {
   border-collapse: separate;
   border-spacing: 0;
   border-radius: 8px;
-  /* Bordes redondeados */
   overflow: hidden;
-  /* Para que los bordes redondeados se apliquen correctamente */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
+  border: 1px solid #000 !important; /* Borde negro fino */
+}
+
+#vehiculosTable thead {
+  background-color: #000 !important; /* Fondo negro para el encabezado */
+  color: #fff !important; /* Letras blancas */
 }
 
 #vehiculosTable_wrapper {
@@ -32,73 +33,105 @@ body {
 }
 
 #vehiculosTable th {
-  background-color: #007bff;
-  /* Color de encabezado más moderno */
-  color: white;
+  background-color: #000 !important; /* Fondo negro para las cabeceras */
+  color: white !important;
   font-weight: bold;
+  border-bottom: 2px solid #000 !important; /* Borde negro */
 }
 
 #vehiculosTable tr:nth-child(even) {
-  background-color: #f8f9fa;
-  /* Fondo alterno para filas */
+  background-color: #f8f9fa !important;
 }
 
 #vehiculosTable tr:hover {
-  background-color: #e9ecef;
-  /* Efecto hover en filas */
+  background-color: #e9ecef !important;
 }
 
 /* Estilos para los botones */
 .btn-success {
-  background-color: #28a745;
-  /* Verde más moderno */
-  border-color: #28a745;
+  background-color: #e83e8c !important; /* Rosa para botones principales */
+  border-color: #e83e8c !important;
+}
+
+.btn-success:hover {
+  background-color: #d63384 !important; /* Rosa oscuro */
+  border-color: #d63384 !important;
+}
+
+.btn-success:focus, .btn-success.focus {
+  box-shadow: 0 0 0 0.2rem rgba(232, 62, 140, 0.5) !important;
+}
+
+.btn-success.disabled, .btn-success:disabled {
+  background-color: #e83e8c !important;
+  border-color: #e83e8c !important;
+}
+
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  background-color: #d63384 !important;
+  border-color: #d63384 !important;
 }
 
 .btn-info {
-  background-color: #17a2b8;
-  /* Azul más moderno */
-  border-color: #17a2b8;
+  background-color: #343a40; /* Gris oscuro para botones secundarios */
+  border-color: #343a40;
 }
 
 .btn-secondary {
   background-color: #6c757d;
-  /* Gris más moderno */
   border-color: #6c757d;
 }
 
 .btn-danger {
   background-color: #dc3545;
-  /* Rojo más moderno */
   border-color: #dc3545;
 }
 
 .btn {
   margin: 2px;
-  /* Espaciado entre botones */
   border-radius: 4px;
-  /* Bordes redondeados para botones */
+}
+
+.btn-custom {
+  background-color: transparent !important; /* Fondo transparente */
+  border: 2px solid #000 !important; /* Borde negro */
+  color: #000 !important; /* Color del texto negro */
+}
+
+.btn-custom i {
+  color: #000 !important; /* Color del ícono negro */
+}
+
+.btn-custom:hover {
+  background-color: #e83e8c !important; /* Fondo rosa al hacer hover */
+  border-color: #e83e8c !important; /* Borde rosa al hacer hover */
+  color: #fff !important; /* Color del texto blanco al hacer hover */
+}
+
+.btn-custom:hover i {
+  color: #fff !important; /* Color del ícono blanco al hacer hover */
 }
 
 /* Estilos para los badges */
 .badge-success {
-  background-color: #28a745;
-  /* Verde más moderno */
+  background-color: #e83e8c !important; /* Rosa */
+}
+
+a.badge-success:hover, a.badge-success:focus {
+  background-color: #d63384 !important; /* Rosa oscuro */
 }
 
 .badge-primary {
   background-color: #007bff;
-  /* Azul más moderno */
 }
 
 /* Estilos para el header */
 header {
-  background-color: #007bff;
-  /* Color de fondo del header */
+  background-color: #000000; /* Negro para el header */
   color: white;
   padding: 15px 0;
   border-radius: 8px;
-  /* Bordes redondeados */
   margin-bottom: 20px;
 }
 
@@ -114,8 +147,10 @@ header h2 {
 }
 
 .liquidado {
-  background-color: red;
-  color: white;
+  background-color: transparent !important; /* Sin fondo */
+  color: black !important; /* Letras negras */
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: #e83e8c !important; /* Subrayado rosa */
 }
 
 .estado-en-deposito {
@@ -129,11 +164,57 @@ header h2 {
 }
 
 .estado-liquidado {
-  color: white;
-  background-color: #dc3545;
+  color: black !important; /* Letras negras */
+  background-color: transparent !important; /* Sin fondo */
   padding: 2px 5px;
   border-radius: 3px;
   font-weight: bold;
   text-align: center;
   font-size: 12px;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: #e83e8c !important; /* Subrayado rosa */
+}
+
+/* Estilos para el navbar */
+.navbar {
+  background-color: #000000 !important; /* Negro para el navbar */
+  color: white !important;
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #e83e8c !important; /* Rosa al hacer hover */
+}
+
+/* Alertas */
+.alert-success {
+  color: #842029 !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c2c7 !important;
+}
+
+.alert-success hr {
+  border-top-color: #f1b0b7 !important;
+}
+
+.alert-success .alert-link {
+  color: #6a1b1d !important;
+}
+
+/* Otros elementos */
+.text-success {
+  color: #e83e8c !important; /* Rosa */
+}
+
+.bg-success {
+  background-color: #e83e8c !important; /* Rosa */
+}
+
+a.bg-success:hover, a.bg-success:focus,
+button.bg-success:hover,
+button.bg-success:focus {
+  background-color: #d63384 !important; /* Rosa oscuro */
 }
