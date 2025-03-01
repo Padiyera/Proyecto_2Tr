@@ -45,9 +45,6 @@
             </ul>
         </div>
     </nav>
-    <header>
-        <h2 class="text-center text-dark"><span class="badge badge-success">Retiradas</span></h2>
-    </header>
 
     <div id="appRetiradas">
         <div class="container-fluid">

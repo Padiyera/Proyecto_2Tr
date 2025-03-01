@@ -45,9 +45,6 @@
             </ul>
         </div>
     </nav>
-    <header>
-        <h2 class="text-center text-dark"><span class="badge badge-success">Logs de Usuarios</span></h2>
-    </header>
 
     <div id="appLogs">
         <div class="container-fluid">

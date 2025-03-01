@@ -45,15 +45,12 @@
             </ul>
         </div>
     </nav>
-    <header>
-        <h2 class="text-center text-dark"><span class="badge badge-success">Usuarios</span></h2>
-    </header>
 
     <div id="appUsuarios">
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <button @click="btnAlta" class="btn btn-success" title="Nuevo"><i class="fas fa-plus-circle fa-2x"></i></button>
+                    <button @click="btnAlta" class="btn btn-custom" title="Nuevo"><i class="fas fa-plus-circle fa-2x"></i></button>
                 </div>
                 <div class="col text-right">
                     <h5>Usuarios Totales: <span class="badge badge-success">{{totalUsuarios}}</span></h5>
