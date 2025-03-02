@@ -528,7 +528,8 @@ var appVehiculos = new Vue({
   },
   computed: {
     totalVehiculos() {
-      return this.vehiculos.length;
+      // Filtrar los vehículos que están en depósito y contar la cantidad
+      return this.vehiculos.filter(vehiculo => vehiculo.estado === "En deposito").length;
     }
   }
 });

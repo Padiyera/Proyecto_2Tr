@@ -53,7 +53,7 @@
                     <button @click="btnAlta" class="btn btn-custom" title="Nuevo"><i class="fas fa-plus-circle fa-2x"></i></button>
                 </div>
                 <div class="col text-right">
-                    <h5>Vehículos Totales: <span class="badge badge-success">{{totalVehiculos}}</span></h5>
+                    <h5>Vehículos en deposito: <span class="badge badge-success">{{totalVehiculos}}</span></h5>
                 </div>
             </div>
             <div class="row mt-5">
