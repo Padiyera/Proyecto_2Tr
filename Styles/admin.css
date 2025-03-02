@@ -47,6 +47,50 @@ body {
   background-color: #e9ecef !important;
 }
 
+/* Estilos DataTable */
+#retiradasTable {
+  width: 100% !important;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000 !important; /* Borde negro fino */
+}
+
+#retiradasTable thead {
+  background-color: #000 !important; /* Fondo negro para el encabezado */
+  color: #fff !important; /* Letras blancas */
+}
+
+#retiradasTable_wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+#retiradasTable th,
+#retiradasTable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#retiradasTable th {
+  background-color: #000 !important; /* Fondo negro para las cabeceras */
+  color: white !important;
+  font-weight: bold;
+  border-bottom: 2px solid #000 !important; /* Borde negro */
+}
+
+#retiradasTable tr:nth-child(even) {
+  background-color: #f8f9fa !important;
+}
+
+#retiradasTable tr:hover {
+  background-color: #e9ecef !important;
+}
+
 /* Estilos para los botones */
 .btn-success {
   background-color: #e83e8c !important; /* Rosa para botones principales */
@@ -173,4 +217,48 @@ header h2 {
   font-size: 12px;
   text-decoration: underline !important; /* Subrayado */
   text-decoration-color: #e83e8c !important; /* Subrayado rosa */
+}
+
+/* Estilos para el navbar */
+.navbar {
+  background-color: #000000 !important; /* Negro para el navbar */
+  color: white !important;
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #e83e8c !important; /* Rosa al hacer hover */
+}
+
+/* Alertas */
+.alert-success {
+  color: #842029 !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c2c7 !important;
+}
+
+.alert-success hr {
+  border-top-color: #f1b0b7 !important;
+}
+
+.alert-success .alert-link {
+  color: #6a1b1d !important;
+}
+
+/* Otros elementos */
+.text-success {
+  color: #e83e8c !important; /* Rosa */
+}
+
+.bg-success {
+  background-color: #e83e8c !important; /* Rosa */
+}
+
+a.bg-success:hover, a.bg-success:focus,
+button.bg-success:hover,
+button.bg-success:focus {
+  background-color: #d63384 !important; /* Rosa oscuro */
 }

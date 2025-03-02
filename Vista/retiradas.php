@@ -15,7 +15,7 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!--CSS custom -->
-    <link rel="stylesheet" href="../Styles/main.css">
+    <link rel="stylesheet" href="../Styles/admin.css">
 </head>
 
 <body>
@@ -48,12 +48,17 @@
 
     <div id="appRetiradas">
         <div class="container-fluid">
+        <div class="row">
+                <div class="col text-right">
+                    <h5>Retiradas</h5>
+                </div>
+            </div>
             <div class="row mt-5">
                 <div class="col-lg-12">
                     <div class="table-responsive">
                         <table id="retiradasTable" class="table table-striped">
                             <thead>
-                                <tr class="bg-primary text-light">
+                                <tr style="background-color: #000; color: #fff;">
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Fecha</th>

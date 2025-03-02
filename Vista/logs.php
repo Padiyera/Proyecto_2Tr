@@ -58,7 +58,7 @@
                     <div class="table-responsive">
                         <table id="logsTable" class="table table-striped">
                             <thead>
-                                <tr class="bg-primary text-light">
+                                <tr style="background-color: #000; color: #fff;">
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Fecha y Hora</th>
