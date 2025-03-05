@@ -1,9 +1,9 @@
 <?php
 class Conexion {
     private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "gruasjuan";
+    private $username = "yeraypadial";
+    private $password = "srA4#7x14";
+    private $dbname = "yeraypadial";
     private $conn;
 
     public function Conectar() {
