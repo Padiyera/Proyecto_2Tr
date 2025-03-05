@@ -26,6 +26,8 @@ INSERT INTO users (username, password, email) VALUES ('user13', 'password13', 'u
 INSERT INTO users (username, password, email) VALUES ('user14', 'password14', 'user14@example.com');
 INSERT INTO users (username, password, email) VALUES ('user15', 'password15', 'user15@example.com');
 INSERT INTO users (username, password, email) VALUES ('admin', 'admin', 'admin@example.com');
+INSERT INTO users (username, password, email) VALUES ('user', 'user123', 'ypadbor947@g.educaand.es);
+
 
 DROP TABLE IF EXISTS user_logs;
 

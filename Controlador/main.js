@@ -92,11 +92,12 @@ var appVehiculos = new Vue({
   methods: {
     // Método para el boton de alta (crear un nuevo registro)
     btnAlta: async function () {
+      const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
       const { value: formValues, isDismissed } = await Swal.fire({
         title: 'Nuevo registro',
         html:
           '<div class="row"><label class="col-sm-3 col-form-label">ID</label><div class="col-sm-9"><input id="id" type="text" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" type="datetime-local" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" type="datetime-local" class="form-control" min="' + currentDate + '"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha Salida</label><div class="col-sm-9"><input id="fechasalida" type="datetime-local" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Lugar</label><div class="col-sm-9"><input id="lugar" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Direccion</label><div class="col-sm-9"><input id="direccion" type="text" class="form-control"></div></div>' +
@@ -159,12 +160,13 @@ var appVehiculos = new Vue({
     },
     // Método para el boton de editar (actualizar un registro existente)
     btnEditar: async function (id, fechaentrada, fechasalida, lugar, direccion, agente, matricula, marca, modelo, color, motivo, tipovehiculo, grua, estado) {
+      const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
       await Swal.fire({
         title: 'Registro: ' + id,
         html:
           '<div class="form-group">' +
           '<div class="row"><label class="col-sm-3 col-form-label">ID</label><div class="col-sm-9"><input id="id" value="' + id + '" type="text" class="form-control" readonly></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" value="' + fechaentrada + '" type="datetime-local" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" value="' + fechaentrada + '" type="datetime-local" class="form-control" min="' + currentDate + '"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha Salida</label><div class="col-sm-9"><input id="fechasalida" value="' + fechasalida + '" type="datetime-local" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Lugar</label><div class="col-sm-9"><input id="lugar" value="' + lugar + '" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Direccion</label><div class="col-sm-9"><input id="direccion" value="' + direccion + '" type="text" class="form-control"></div></div>' +
