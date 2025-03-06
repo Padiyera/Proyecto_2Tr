@@ -22,6 +22,7 @@ if (!currentUser) {
   // Si el usuario no es admin, ocultar las vistas de Usuarios y Logs
   document.querySelector('a[href="adminGrua.php"]').style.display = 'none';
   document.querySelector('a[href="logs.php"]').style.display = 'none';
+  document.querySelector('a[href="retiradas.php"]').style.display = 'none';
 }
 
 function logout() {
@@ -92,13 +93,12 @@ var appVehiculos = new Vue({
   methods: {
     // Método para el boton de alta (crear un nuevo registro)
     btnAlta: async function () {
-      const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
+      const currentDate = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato adecuado para el input datetime-local
       const { value: formValues, isDismissed } = await Swal.fire({
         title: 'Nuevo registro',
         html:
           '<div class="row"><label class="col-sm-3 col-form-label">ID</label><div class="col-sm-9"><input id="id" type="text" class="form-control"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" type="datetime-local" class="form-control" min="' + currentDate + '"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Salida</label><div class="col-sm-9"><input id="fechasalida" type="datetime-local" class="form-control"></div></div>' +
+          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" type="datetime-local" class="form-control" value="' + currentDate + '" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Lugar</label><div class="col-sm-9"><input id="lugar" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Direccion</label><div class="col-sm-9"><input id="direccion" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Agente</label><div class="col-sm-9"><input id="agente" type="text" class="form-control"></div></div>' +
@@ -119,7 +119,6 @@ var appVehiculos = new Vue({
           return [
             this.id = document.getElementById('id').value,
             this.fechaentrada = document.getElementById('fechaentrada').value,
-            this.fechasalida = document.getElementById('fechasalida').value,
             this.lugar = document.getElementById('lugar').value,
             this.direccion = document.getElementById('direccion').value,
             this.agente = document.getElementById('agente').value,
@@ -137,7 +136,7 @@ var appVehiculos = new Vue({
       if (isDismissed) {
         return; // Si se cancela, no hacer nada
       }
-      if (this.id == "" || this.fechaentrada == "" || this.fechasalida == "" || this.lugar == "" || this.direccion == "" || this.agente == "" || this.matricula == "" || this.marca == "" || this.modelo == "" || this.color == "" || this.motivo == "" || this.tipovehiculo == "" || this.grua == "" || this.estado == "") {
+      if (this.id == "" || this.fechaentrada == "" || this.lugar == "" || this.direccion == "" || this.agente == "" || this.matricula == "" || this.marca == "" || this.modelo == "" || this.color == "" || this.motivo == "" || this.tipovehiculo == "" || this.grua == "" || this.estado == "") {
         Swal.fire({
           icon: 'info',
           title: 'Datos incompletos',
@@ -167,7 +166,6 @@ var appVehiculos = new Vue({
           '<div class="form-group">' +
           '<div class="row"><label class="col-sm-3 col-form-label">ID</label><div class="col-sm-9"><input id="id" value="' + id + '" type="text" class="form-control" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" value="' + fechaentrada + '" type="datetime-local" class="form-control" min="' + currentDate + '"></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Salida</label><div class="col-sm-9"><input id="fechasalida" value="' + fechasalida + '" type="datetime-local" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Lugar</label><div class="col-sm-9"><input id="lugar" value="' + lugar + '" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Direccion</label><div class="col-sm-9"><input id="direccion" value="' + direccion + '" type="text" class="form-control"></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Agente</label><div class="col-sm-9"><input id="agente" value="' + agente + '" type="text" class="form-control"></div></div>' +
@@ -203,7 +201,6 @@ var appVehiculos = new Vue({
         if (result.value) {
           const id = document.getElementById('id').value;
           const fechaentrada = document.getElementById('fechaentrada').value;
-          const fechasalida = document.getElementById('fechasalida').value;
           const lugar = document.getElementById('lugar').value;
           const direccion = document.getElementById('direccion').value;
           const agente = document.getElementById('agente').value;
@@ -255,7 +252,6 @@ var appVehiculos = new Vue({
         title: 'Registro: ' + id,
         html:
           '<div class="row"><label class="col-sm-3 col-form-label">Fecha Entrada</label><div class="col-sm-9"><input id="fechaentrada" value="' + fechaentrada + '" type="datetime-local" class="form-control" readonly></div></div>' +
-          '<div class="row"><label class="col-sm-3 col-form-label">Fecha Salida</label><div class="col-sm-9"><input id="fechasalida" value="' + fechasalida + '" type="datetime-local" class="form-control" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Lugar</label><div class="col-sm-9"><input id="lugar" value="' + lugar + '" type="text" class="form-control" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Direccion</label><div class="col-sm-9"><input id="direccion" value="' + direccion + '" type="text" class="form-control" readonly></div></div>' +
           '<div class="row"><label class="col-sm-3 col-form-label">Agente</label><div class="col-sm-9"><input id="agente" value="' + agente + '" type="text" class="form-control" readonly></div></div>' +
@@ -376,13 +372,93 @@ var appVehiculos = new Vue({
         Toastt.fire({
           icon: 'success',
           title: '¡Vehículo retirado!'
-        })
+        });
+        this.btnImprimir({
+          idvehiculos: idvehiculos,
+          fecha: fecha,
+          nif: nif,
+          importeretirada: importeretirada,
+          importedeposito: importedeposito,
+          total: total,
+          opcionespago: opcionespago
+        });
         this.listarVehiculos();
         logAction(currentUser, 'Retirada');
       }).catch(error => {
         console.error("Error al retirar el vehículo:", error);
       });
     },
+    // Método para generar y descargar la factura en PDF
+    btnImprimir: function (retirada) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Add company name and details
+      doc.setFontSize(22);
+      doc.text('GruasJuan,S.L.', 10, 20);
+      doc.setFontSize(12);
+      doc.text('Teléfono: 123-456-7890', 140, 20);
+      doc.text('Avd.Santa Marta. Nº8', 140, 25);
+      doc.text('Email: gruasJuan@empresa.com', 140, 30);
+
+      // Add title
+      doc.setFontSize(18);
+      doc.text('Factura Simplificada', 10, 50);
+
+      // Add a line under the title
+      doc.setLineWidth(0.5);
+      doc.line(10, 55, 200, 55);
+
+      // Add content
+      doc.setFontSize(12);
+      doc.text(`Factura nº: ${retirada.idvehiculos}`, 10, 75);
+      doc.text(`Fecha: ${retirada.fecha}`, 10, 85);
+      doc.text(`NIF: ${retirada.nif}`, 10, 95);
+
+      // Add a table for the details
+      doc.autoTable({
+        startY: 100,
+        head: [['Descripción', 'Total']],
+        body: [
+          ['Retirada', `${retirada.importeretirada} €`],
+          ['Depósito', `${retirada.importedeposito} €`],
+        ],
+        theme: 'grid', // Mantiene solo las líneas de la tabla
+        styles: {
+          lineWidth: 0.1, // Grosor mínimo de las líneas
+          lineColor: [0, 0, 0], // Líneas en negro
+          fillColor: false, // Desactiva colores de fondo
+          textColor: [0, 0, 0], // Texto en negro
+        },
+        headStyles: {
+          fillColor: false, // Sin fondo en el encabezado
+          textColor: [0, 0, 0], // Texto en negro
+          lineWidth: 0.1, // Línea delgada
+          lineColor: [0, 0, 0], // Líneas en negro
+        },
+        bodyStyles: {
+          fillColor: false, // Sin fondo en el cuerpo
+          textColor: [0, 0, 0], // Texto en negro
+          lineWidth: 0.1, // Línea delgada
+          lineColor: [0, 0, 0], // Líneas en negro
+        }
+      });
+
+      // Add total
+      doc.setFontSize(14);
+      doc.text(`Total de la retirada: ${retirada.total} €`, 10, doc.autoTable.previous.finalY + 10);
+      doc.setFontSize(12);
+      doc.text(`Pago mediante: ${retirada.opcionespago} `, 10, doc.autoTable.previous.finalY + 20);
+
+      // Add a footer
+      doc.setFontSize(10);
+      doc.text('Todos los derechos reservados a GrusJuan,S.L.', 10, 280);
+
+      // Save the PDF
+      doc.save(`Factura_${retirada.idvehiculos}.pdf`);
+      logAction(currentUser, 'Factura descargada');
+    },
+
     // Método para calcular el importe del depósito basado en el tipo de vehículo
     calcularImporteDeposito: function (tipovehiculo) {
       console.log('Calculando importe para:', tipovehiculo); // Verifica el valor de tipovehiculo

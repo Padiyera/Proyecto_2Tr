@@ -63,8 +63,7 @@
                             <thead>
                                 <tr style="background-color: #000; color: #fff;">
                                     <th>ID</th>
-                                    <th>Fecha Entrada</th>
-                                    <th>Fecha Salida</th>
+                                    <th>Fecha</th>
                                     <th>Matrícula</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
@@ -74,7 +73,6 @@
                                 <tr v-for="(vehiculo, indice) of vehiculos" :key="indice">
                                     <td>{{vehiculo.id}}</td>
                                     <td>{{vehiculo.fechaentrada}}</td>
-                                    <td>{{vehiculo.fechasalida}}</td>
                                     <td>{{vehiculo.matricula}}</td>
                                     <td :class="{'estado-en-deposito': vehiculo.estado === 'En deposito', 'estado-liquidado': vehiculo.estado === 'Liquidado'}">{{vehiculo.estado}}</td>
                                     <td>
@@ -107,6 +105,9 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <!--Código custom -->
     <script src="../Controlador/main.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </body>
 
 </html>

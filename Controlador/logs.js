@@ -20,6 +20,7 @@ if (!currentUser) {
     // Si el usuario no es admin, ocultar las vistas de Usuarios y Logs
     document.querySelector('a[href="adminGrua.php"]').style.display = 'none';
     document.querySelector('a[href="logs.php"]').style.display = 'none';
+    document.querySelector('a[href="retiradas.php"]').style.display = 'none';
 }
 
 function logout() {
